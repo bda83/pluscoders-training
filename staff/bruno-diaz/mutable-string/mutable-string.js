@@ -140,12 +140,12 @@ MutableString.prototype.endsWith = function(text, from) {
  * 
  * @returns {string} The string between tho index positions.
  * 
- * @param {number} from - the index position to start.
+ * @param {number} [from = 0] - the index position to start.
  * @param {number} [to = this.length] - the index position to end.
  * 
  * @example
  *    var ms = new MutableString('   Hello, World  !  ')
- *    ms.slice(3, -5)
+ *    ms.slice(3, 7)
  *      > 'Hell'
  */
 
