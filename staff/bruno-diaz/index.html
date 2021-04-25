@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title></title>
+</head>
+<body>
+    <nav id="navList"></nav>
+
+    <section id="contain">
+        <h1>Variable</h1>
+        <div class="contain__block">
+            <div>
+                
+            </div>
+            <pre class="language-javascript"><code>
+
+            </code></pre>
+        </div>
+
+        <h1>Object</h1>
+        <div class="contain__block">
+            <div>
+                
+            </div>
+            <pre class="language-javascript"><code>
+
+            </code></pre>
+        </div>
+
+        <h1>Function</h1>
+        <div class="contain__block">
+            <div>
+                Una función es un trozo o conjunto de funcionalidad que ejecutan una tarea (se aconseja que tenga una única responasibilidad).
+            
+                <h6>Declarar una función</h6>
+                <pre class="language-javascript"><code>
+function name() { ... }
+                </code></pre>
+                Donde vemos las siguientes partes:
+                <ul class="contain__list">
+                    <li>name -> ID para determinar la función</li>
+                    <li>() -> operador de agrupación para recibir parámetros</li>
+                    <li>{} -> para delimitar el bloque de sentencias que definen la función</li>
+                </ul>
+                
+                <h6> Invocación de una función</h6>
+                <pre class="language-javascript"><code>
+name()
+                </code></pre>
+                Con esto se puede determinar que console.log() o alert() son funciones.
+
+                Una cualidad de JS es que la función se puede invocar antes de declararse --> ver Hoisting (alzado)
+
+                Las funciones en JS se pueden utilizar en cualquier contexto: se pueden invocar, enviar, retornar, pasar como parámetro, devolverlas para ejecutar más adelante (callback),...
+
+                Se recomienda que toda función debe de retornar algo y para ello tenemos el 'return'.
+            </div>
+            <pre class="language-javascript"><code>
+function uppercase(text) {
+    return text.toUpperCase()
+}
+uppercase("lorem ipsum dolor sit amet")
+// "LOREM IPSUM DOLOR SIT AMET"
+            </code></pre>
+        </div>
+
+        <h3 id="function__R">Return</h3>
+        <div class="contain__block">
+            <div>
+                Una función hace una serie de tareas y al finalizar, por norma general, <strong>debe de retornar el resultado</strong> de dichas tareas; esto se consigue con el <strong>return</strong>.
+                <br><br>
+                Por ejemplo, una función que calcula el cuadrado de un número tendrá como entrada a ese número y como salida tendrá el valor resultante de hallar el cuadrado de ese número. Para ello, se utiliza la palabra <strong>return</strong> seguida del valor que se desea devolver.
+                <br><br>
+                Para almacenar un valor de devolución de una función, tenemos que asignar la llamada a esa función como contenido en una variable:
+                <br>
+                <pre class="language-javascript"><code>
+var name = function()
+                </code></pre>
+            </div>
+            <pre class="language-javascript"><code>
+> Ejemplo con RETURN:
+    function uppercase(text) {
+        return text.toUpperCase()
+    }
+    var nombre = uppercase('Pepe')
+    console.log(nombre)
+    // 'PEPE'
+
+> Ejemplo sin RETURN:
+    function uppercase(text) {
+        text.toUpperCase()
+    }
+    var nombre = uppercase('Pepe')
+    console.log(nombre)
+    // undefined
+            </code></pre>
+        </div>
+
+        <h3 id="function__C">Closures</h3>
+        <div class="contain__block">
+            <div>
+                A grandes rasgos, un closure es una función dentro de una función. De este modo, dicha función <i>inner</i> solo está disponible dentro de la función <i>outer</i> y tiene acceso a sus variables/argumentos.
+                <pre class="language-javascript"><code>
+function suma(a) {
+    return function(b) {
+        return a + b
+    }
+}
+console.log( suma(1)(2) )
+//  3 
+                </code></pre>
+                Esta técnica se utiliza comúnmente para dar a los objetos la privacidad de los datos y en lenguajes que soportan first-class functions es muy recurrente para dar acceso a variables de un scope externo desde dentro de sus lambdas (función que se utiliza como dato).
+            </div>
+            <pre class="language-javascript"><code>
+// Ejemplo donde la privacidad de los datos es importante
+var user = ( function(id) {
+    function getUserFromApi() {
+        ... // Petición AJAX
+        return {
+            id: 10,
+            name: 'Eduardo',
+            lastname: 'Rodríguez Patiño',
+            email: 'erodriguezp105@gmail.com'
+        }
+    }
+    var data =  getUserFromApi(id)
+    return {
+        data: data,
+        sayHello: function() {
+            return 'Hi, I am ' + data.name;
+        }
+    }
+})(10)
+console.log( user.sayHello() )
+            </code></pre>
+        </div>
+
+        <h1 id="function__A">Scope</h1>
+        <div class="contain__block">
+            <div>
+                El scope (o contexto de ejecución) es el alcance (visibilidad) que vamos a tener de una variable para poder utilizarla. Puede ser <strong>Global</strong> (se puede acceder desde cualquier parte de nuestro código) o <strong>Local</strong> (su acceso es limitado).
+                <br><br>
+                Dentro de las funciones podemos declarar variables y todas ellas tendrán validez durante la ejecución de la función, es decir, son variables locales; las variables declaradas fuera de funciones se denominan variables globales. 
+                <br>
+                <div class="moreInfo">
+                    <i class="fa fa-arrow-circle-right "></i> Ver más sobre <a href="#">Variables</a>
+                </div>
+                <br>
+                Siempre que se declare una variable dentro de una función, inclusive si hubiera una función global con el mismo nombre, su comportamiento será local. En cambio, si no declaramos una variable en una función JS entenderá que estamos haciendo referencia a una variable global a la página, de modo que si no está creada la variable la crea, pero siempre como variable global.
+                <div class="moreInfo">
+                    <i class="fa fa-arrow-circle-right "></i> Ver más sobre <a href="#">Ámbito de variables</a>
+                </div>
+            </div>
+            <pre class="language-javascript"><code>
+var a = 5
+function foo() {
+    console.log(a)     // undefined
+    var a = 10
+    var b = 40
+    console.log(a)     // 10
+    if (true) {
+        console.log(a) // 10
+        var a = 20
+        console.log(a) // 20
+        for( a=0; a<11; a++) {
+            console.log(a)
+        }
+    }
+    console.log(a)     // 11
+}
+console.log(a)         //  5
+foo()
+console.log(a)         //  5
+console.log(b)         //  ReferenceError: local is not defined
+            </code></pre>
+        </div>
+
+        <h3 id="">Hoisting</h3>
+        <div class="contain__block">
+            <div>
+                En JS, la declaración de las variables y funciones son "movidas" o "elevadas" al comienzo del código, a este efecto se le denomina Hoisting. En realidad no se "mueven", son asignadas en memoria durante la fase de compilación y solo aplica a la declaración (no a su asignación).
+            </div>
+            <pre class="language-javascript"><code>
+console.log(a)
+var a = 1
+// undefined
+
+b = 10
+console.log(b)
+var b = 20
+// 10
+
+            </code></pre>
+        </div>
+
+        <h1>Eventos</h1>
+        <div class="contain__block">
+            <div>
+                Los eventos son acciones que realiza el ususario (consciente o incosciente), a las que debemos anticiparnos y preparar la página o aplicación para que sepan cómo se debe de actuar ante ellos. Los eventos se definen de tres modos: por <strong>atributo HTML</strong> asociada a una función (<code>&lt;tag onclick=""&gt;</code>), a través de una <strong>propiedad JS</strong> asociada a una función (<code>tag.onclick = ...</code>) o con el <strong>método addEventListener</strong> donde añades una función (<code>tag.addEventListener("click", ...)</code>)
+            </div>
+        </div>
+
+        <h3>Evento - Atributos HTML</h3>
+        <div class="contain__block">
+            <div>
+                Definimos un evento a través de un atributo HTML. Siempre comienzan por <code>on</code> y en el valor se indica la función que se quiere ejecutar.
+            </div>
+            <pre class="language-html"><code>
+&lt;button onClick="sendMessage()"&gt;👀 Press me!&lt;/button&gt;
+&lt;script&gt;
+  var sendMessage = () => alert("Hello!")
+&lt;/script&gt;
+            </code></pre>
+        </div>
+
+        <h3>Evento - Propiedad JS</h3>
+        <div class="contain__block">
+            <div>
+                Se define haciendo uso de las propiedades de JS. Por cada evento, existe una propiedad (onclick, por ejemplo) disponible en el elemento en cuestión.
+            </div>
+            <pre class="language-html"><code>
+&lt;button&gt;👀 Press me!&lt;/button&gt;
+&lt;script&gt;
+    var button = document.querySelector("button")
+    button.onclick = () => alert("Hello!")
+&lt;/script&gt;
+            </code></pre>
+        </div>
+
+        <h3>Evento - addEventListener</h3>
+        <div class="contain__block">
+            <div>
+                Con el método <code>.addEventListener()</code> añadimos una función que escucha el evento y, si ocurre, la ejecuta. Este método permite una forma más cómoda y programática de añadir eventos, sin sobreescribir las funciones definidas anteriormente. Su método contrapartida es <code>.removeEventListener()</code>, el cual elimina esa función que escucha el evento.
+            </div>
+            <pre class="language-javascript"><code>
+var btn = document.getElementById("myBtn")
+btn.addEventListener("click", function(){
+    var div = document.getElementById("div")
+    div.innerHTML = "Hello World"
+})
+            </code></pre>
+        </div>
+
+        <h1>Patrones de diseño</h1>
+        <div class="contain__block">
+            <div>
+                
+            </div>
+        </div>
+
+        <h3 id="function__FE">Function Expression</h3>
+        <div class="contain__block">
+            <div>
+                Una Expresión Funcional se realiza con una función (anónima o no) pero asignada a una variable:
+                <br><br>
+                En este caso no se puede invocar la función antes de declararla, pues al alzar la declaración de la variable esta tiene valor undefined:
+                <br><br>
+                Otra diferencia importante de estas respecto las funciones declarativas es que las primeras cargan al ser invocadas mientras que las segundas lo hacen al cargar el programa.
+            </div>
+            <pre class="language-javascript"><code>
+name()
+var name = function() { ... }
+// 'TypeError: name is not a function' --> name = undefined
+
+name()
+function name() {
+    console.log('Lorem ipsum...')
+}
+// "Lorem ipsum...""
+            </code></pre>
+        </div>
+
+        <h3 id="function__IIFE">Immediately Invoked Function Expression - IIFE</h3>
+        <div class="contain__block">
+            <div>
+                Es un patrón de diseño, también conocido como <strong>función autoejecutable</strong>, que se compone de dos partes: una función anónima con alcance léxico encerrado por el operador de agrupación () y una función cuya ejecución es inmediata.
+                <pre class="language-javascript"><code>
+( function() {...} )()
+                </code></pre>
+                Como su nombre indica, es una expresión de función que es ejecutada inmediatamente, autoejecutable. El operador de agrupación () impide accesar variables fuera de él y no se ensucia el scope global. Da pie a los muy usados patrones de diseño Revealing Module Pattern.
+            </div>
+            <pre class="language-javascript"><code>
+var result = (function() {
+    var name = 'Barry';
+    return name;
+})()
+result // "Barry"
+            </code></pre>
+        </div>
+        
+        <h3 id="function__HOF">Higher Order Function - HOF</h3>
+        <div class="contain__block">
+            <div>
+                Abstracción característica de los lenguajes de <strong>Programación Funcional</strong> se trata a las funciones como 'first-class citizens': las funciones son objetos que pueden ser tratados como variables, parámetros o como valores de retorno de otras funciones.
+            </div>
+            <pre class="language-javascript"><code>
+function diHola() { return "Hola " }
+function saludar(saludo, nombre) {
+    console.log(saludo() + nombre)
+}
+saludar(diHola, "JavaScript!")   // "Hola JavaScripr!"
+            </code></pre>
+        </div>
+
+        <h1 id="paradigma">Paradigmas de programación</h1>
+        <div class="contain__block">
+            <div>
+                Un paradigma de programación es el estilo de construir la estructura y los elementos de un programa. Los más famosos son el <strong>Declarativo</strong> y el <strong>Imperativo</strong>.
+            </div>
+        </div>
+
+        <h3 id="paradigma__DI">Programación Declarativa vs. Imperativa</h3>
+        <div class="contain__block">
+            <div>
+                El <strong>paradigma declarativo</strong> construye un código en un lenguaje especificando qué quiere hacer sin importar el cómo. Su opuesto sería el <strong>paradigma imperativo</strong>. En el primero sería como pedirle a la computadora que te prepare una taza de té (sin importar cómo lo haga, lo importante es obtener una taza de té), mientras que en el segundo le irías pasando los comandos para conseguirlo, describes el cómo obtenerlo: ve a la cocina > si hay una tetera acércate a ella > si no tiene suficiente agua la rellenas hasta que haya suficiente agua para una taza de té > una vez tenga suficiente agua la pones a calentar > ...
+                <pre class="language-javascript"><code>
+SELECT * FROM clientes<br>
+&lt;div&gt;&lt;/div&gt;
+                </code></pre>
+                En los ejemplos anteriores no se está implementando el SELECT o el div, simplemente le estás diciendo a la computadora qué hacer omitiendo el cómo; te centras en los pasos que hay que hacer y no en cómo hacerlos. De este modo eliminamos código repetitivo que no aporta valor al producto, dejando así un código más legible, menos propenso al error, con un comportamiento predecible y resultará sencilla combinarlo con test unitarios.
+            </div>
+        </div>
+
+        <h3 id="paradigma__F">Programación Funcional</h3>
+        <div class="contain__block">
+            <div>
+                La Programación Funcional es un sub-paradigma de la Programación Declarativa que fue teorizada en 1930 e implementada en los años 60. Se puede explicar siguiendo dos reglas en tu código:
+                <ul class="contain__list">
+                    <li>Uso de <strong>funciones puras y aisladas</strong>.</li>
+                    <li>Evita la <strong>mutabilidad y efectos secundarios</strong>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h6>Funciones Puras y Aisladas</h6>
+        <div class="contain__block">
+            <div>
+                Aquellas funciones que operan utilizando solo los parámetros de entrada sin recurrir a ningún otro elemento fuera de ellas, es decir, son funciones idempotentes (<em>dado unos parámetros de entrada de idéntico valor, la función siempre devolverá el mismo resultado</em>) y sin efectos secundarios (<em>el cómputo de la función, su lógica, no implica efecto observable colateral fuera de ella</em>).
+                <br><br>
+                Por un lado, podemos observar que siempre que llames a esta función con los mismo parámetros, su resultado será idéntico; no requiere o depende de ningún estado o valor fuera de ella. Por otro, el cálculo que realiza nuestra función no modifica durante el mismo nada fuera de ella: ni a ni b son mutadas durante el proceso.
+                <br><br>
+                Los beneficios de las funciones puras son: inmutabilidad (no modificamos nada fuera de nuestra función; nos limitamos a un único e identificable scope), son fáciles de testear, comportamiento legible y predecible (autodocumentación), paralelización (debido a la ausencia de dependencias y a que ningún otro componente principal se verá afectado), memoization (optimización del código guardando el resultado de funciones recurrentes en cache).
+            </div>
+            <pre class="language-javascript"><code>
+// Función Pura
+function pure(a, b) {
+    return a + b
+}
+// Funciones NO Puras
+Math.random()
+new Date().toLocaleTimeString()
+
+function getFirstElementInArray(arr) {
+    return arr.splice(0,1) // Splice modifica el arr de entrada
+}
+            </code></pre>
+        </div>
+
+        <h6>Mutabilidad y Efectos Secundarios</h6>
+        <div class="contain__block">
+            <div>
+                Se trata de limitar los cambios de variables y, en caso de necesitarlo, realizarlo en copias. ¿Cómo nos aseguramos de esto? Primero, haciendo uso de los argumentos de la función y de ningún objeto o variable global. Segundo, asegurándonos de no modificar ninguna variable u objeto: crearemos nuevas variables/objetos y las devolveremos (si es necesario) desde una función.
+                <br><br>
+                Los beneficios de esta filosofía son conseguir un código referencialmente transparente (las llamadas a funciones se pueden reemplazar por los valores que representan sin afectar al resultado).
+            </div>
+            <pre class="language-javascript"><code>
+const obj = Object.freeze({
+    noCambia: 'Locked' }) // La función "freeze" aplica la inmutabilidad.
+
+obj.noCambia = 0
+delete obj.noCambia
+obj.agregarProp = true
+obj
+// { noCambia: "Locked" }
+            </code></pre>
+        </div>
+
+        <h6>Otras características</h6>
+        <div class="contain__block">
+            <div>
+                <strong>Recursión</strong>: funciones que se llaman a sí mismas. Puede correr el riesgo de bloquear el navegador si no se hace bien, pero nos permite dejar de mutar las variables del estado.
+                <br><br>
+                <strong>Currying</strong>: proceso de descomponer una función que toma más de un parámetro en una serie de funciones que se invocan con los mismos argumentos, pero de manera parcial. Es muy útil cuando necesitas reutilizar la misma función varias veces y los argumentos cambian.
+                <br><br>
+                <strong>Aplicación parcial</strong>: ver bind
+                <!-- https://www.freecodecamp.org/espanol/news/que-es-la-programacion-funcional-una-guia-de-javascript-para-principiantes/ -->
+                <br><br>
+                <strong>Composición</strong>: tomar funciones pequeñas y agruparlas/combinarlas para generar funciones más grandes. De este modo, estructuramos el código a partir de funciones reutilizables.
+            </div>
+            <pre class="language-javascript"><code>
+// RECURSIÓN
+function sum(num){
+    if (num === 0) {
+        return 0;
+    } else {
+        return num + sum(--num)
+    }
+}
+sum(4)    // 10
+
+// CURRYING
+function suma(primerNum){
+    return function(segundoNum){
+            return primerNum + segundoNum;
+    }
+}
+let suma10 = suma(10)
+suma10(2);   // 12
+let suma20 = suma(20)
+suma20(2);   // 22
+
+// COMPOSICIÓN
+function suma10(num) {
+	return num + 10;
+}
+function suma100(num) {
+    return num + 100;
+}
+// Podemos componer estas dos a lo siguiente:
+function compuesta(num){
+	return suma10(suma100(num));
+}
+compuesta(1)   // 111
+            </code></pre>
+        </div>
+
+        <h1>Web component</h1>
+        <div class="contain__block">
+            <div>
+                En un contexto web, cuando hablamos de <strong>componente</strong> nos referimos a una forma de unir el marcado (HTML), estilo (CSS) y funcionalidad (JS) con una misma finalidad. Por ende, los web components son un paquete de diferentes tecnologías que te permiten crear elementos personalizados reutilizables, con su funcionalidad encapsulada y apartada del resto del código para evitar colisiones. Consta de diferentes tecnologías y tenemos la posibilidad de combinarlas para crear potentes componentes web. Las principales son: <strong>custom elements</strong>, <strong>shadow DOM</strong> y <strong>HTML templates</strong>.
+            </div>
+        </div>
+
+        <h6>Custom Elements</h6>
+        <div class="contain__block">
+            <div>
+                Conjunto de APIs de JS que permiten asociar etiquetas propias de HTML a la clase definida para tu componente. Las dota de su propia funcionalidad, marcado HTML o estilo CSS y se implementa desde JS, extendiendo de la clase HTMLElement.
+            </div>
+            <pre class="language-html"><code>
+// Etiqueta div estándar de HTML5
+&lt;div class="emoji"&gt; :) &lt;/div&gt;
+// class AppEmoji extends HTMLElement { ... }
+// window.customElements.define('app-emoji', AppEmoji)
+&lt;app-emoji name="happy"&gt; :) &lt;/app-emoji&gt;
+            </code></pre>
+        </div>
+
+        <h6>HTML Templates</h6>
+        <div class="contain__block">
+            <div>
+                Se trata de unas etiquetas HTML, <code>&lt;template&gt;</code> y <code>&lt;slot&gt;</code>, que nos permite crear contenido inerte en una página, es decir, el navegador no invertirá recursos en su procesamiento hasta que lo utilicemos desde JS para crear nuevos elementos en base a él.
+            </div>
+            <pre class="language-html"><code>
+&lt;template id="user-template"&gt;
+    &lt;h1&gt;Username&lt;/h1&gt;
+    &lt;img src="user-image.png" alt="Username"&gt;
+    &lt;a href="https://website.com/"&gt;URL&lt;/a&gt;
+&lt;/template&gt;
+            </code></pre>
+        </div>
+
+        <h6>Shadow DOM</h6>
+        <div class="contain__block">
+            <div>
+                El <strong>DOM</strong> es la estructura de elementos de un documento HTML. La API <strong>shadow DOM</strong> pretende crear una estructura aislada, independiente del DOM principal, donde se pueda trabajar de forma local sin que repercuta con el resto del documento. Es renderizado por separado del documento DOM principal, de esta forma, se pueden mantener características de un elemento en privado y así puede tener estilos y scripts sin miedo a colisiones con otras partes del documento.
+            </div>
+            <pre class="language-html"><code>
+&lt;div class="element"&gt;
+    #shadow-root
+        &lt;div class="inner-element"&gt;
+            ...
+        &lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
+        </div>
+
+        <h6>Otras tecnologías</h6>
+        <div class="contain__block">
+            <div>
+                <ul class="contain__list">
+                    <li>
+                        <strong>Módulos ECMAScript</strong> (ESM o ESModules): estándar de JS que permite organizar elementos de nuestro código JS (const, funciones, clases, etc) en módulos y exportarlos para ponerlos a disposición en otro archivo JS que quiera importartlos.
+                    </li>
+                    <li>
+                        <strong>CSS Scopes & Shadow Parts</strong>: con la llegada de los web component hubieron novedades también en el mundo del CSS con la llegada de pseudoclases CSS que nos permiten aplicar estilos al elemento contenedor (<code>:host</code>, <code>:host()</code> y <code>:host-context()</code>), de un pseudoelemento CSS (<code>:slotted()</code>) y una especificación que nos provee de un pseudoelemento denominada <strong>CSS Shadow Parts</strong> (<code>::part()</code>)
+                    </li>
+                </ul>
+            </div>
+            <pre class="language-html"><code>
+// ESM o ESModules
+&lt;script type="module" src="fichero.js"&gt;&lt;/script&gt;
+            </code></pre>
+        </div>
+
+        <h3>Creación del Web Component</h3>
+        <div class="contain__block">
+            <div>
+                Como hemos visto anteriormente, debemos empezar a crear nuestro web component con  el custom element.
+
+
+
+
+
+                Toda etiqueta HTML tiene una serie de <strong>atributos</strong> que lo pueden acompañar (<code>class</code>, <code>id</code>, <code>name</code>,...), pero en los web components desempeñan un papel importantísimo, ya que pueden existir atributos para pasar información a la lógica del componente.
+
+                ...
+            </div>
+            <pre class="language-html"><code>
+            </code></pre>
+        </div>
+
+        <h3>Eventos Web Component</h3>
+        <div class="contain__block">
+            <div>
+                Los eventos son acciones que realiza el ususario (consciente o incosciente), a las que debemos anticiparnos y preparar la página o aplicación para que sepan cómo se debe de actuar ante ellos. Pero, ¿cuál es la manera más apropiadas de poner un evento en un web component?
+                <div class="moreInfo">
+                    <i class="fa fa-arrow-circle-right "></i> Ver más sobre <a href="#">Eventos</a>
+                </div>
+            </div>
+        </div>
+
+        <h6>handleEvent</h6>
+        <div class="contain__block">
+            <div>
+                El uso de los sistemas de eventos vistos en capítulos anteriores (atributos HTML, porpiedades JS y addEventListener) nos generará problemas en nuestro web component, ya sea por ser necesario que la función a ejecutar esté en un contexto global o porque el código resultante sea críptico y escasamente legible. Para solucionarlo existe un patrón en JS muy interesante que permite organizar el código de nuestra clase de una forma muy elegante. Se trata de crear un método llamado <code>.handleEvent()</code> que se encargará de gestionar los eventos y reenviarlos a donde corresponda.
+                <br><br>
+                En el segundo parámetro del método <code>.addEventListener()</code> colocamos <code>this</code> (una referencia a la clase). De este modo, el navegador buscará si existe un método llamado <code>.hableEvent()</code> y si existe, lo procesa. En dicho método lo que hacemos es comprobar el <code>event.type</code> (tipo de evento que se ha lanzado: click, mousedown, mousemove, etc.) y ejecutar la función que buscamos. De esta forma, centralizamos en este método la gestión de las funciones necesarias, por lo que nos quedará todo más legible y organizado.
+            </div>
+            <pre class="language-html"><code>
+&lt;app-element&gt;&lt;/app-element&gt;
+
+&lt;script&gt;
+    customElements.define("app-element", class extends HTMLElement {
+        constructor() {
+            super();
+            this.attachShadow({ mode: "open" });
+        }
+
+        handleEvent(event) {
+            if (event.type === "click")
+                this.sendMessage();
+        }
+
+        sendMessage() {
+            alert("Hello!");
+        }
+
+        connectedCallback() {
+            this.shadowRoot.innerHTML = "&lt;button&gt;👀 Press me!&lt;/button&gt;";
+            this.button = this.shadowRoot.querySelector("button");
+            this.button.addEventListener("click", this);
+        }
+
+        disconnectedCallback() {
+            this.button.removeEventListener("click", this);
+        }
+    });
+&lt;/script&gt;
+            </code></pre>
+        </div>
+
+        <h6>Custom Events</h6>
+        <div class="contain__block">
+            <div>
+                Custom Events es un mecanismo que nos permite crear nuestros eventos personalizados propios y utilizarlos en momentos concretos de nuestro código para disparar funciones asociadas al igual que se hace con los eventos habituales en el JS, como <code>click</code> o <code>input</code>, por ejemplo. Además, en Web Components se emplean para comunicar entre componentes y hacerlo de una forma en la que mantengamos la lógica (sin acoplar código a componentes ajenos o generar dependencias externas).
+            </div>
+        </div>
+
+        <strong>Sintaxis</strong>
+        <div class="contain__block">
+            <div>
+                Crear un custom event es muy sencillo. Se basa en crear una instancia del objeto <code>CustomEvent</code>, al cual le pasaremos un <code>string</code> con el nombre que le hemos puesto a nuestro evento, y un segundo parámetro que será un <code>object</code> de opciones. En vez de <code>CustomEvent</code> también se puede usar <code>Event</code> si es que no queremos añadir datos personalizados.
+            </div>
+            <pre class="language-javascript"><code>
+const nameEvent = new CustomEvent("nameEvent", options);
+const nameEvent = new Event("nameEvent");
+            </code></pre>
+        </div>
+
+        <strong>Opciones customizables</strong>
+        <div class="contain__block">
+            <div>
+                El segundo parámetro de <code>CustomEvent</code> es donde podemos especificar varios detalles en relación al comportamiento o contenido del evento:
+                <ul class="contain__list">
+                    <li><strong>detail</strong> <i>[object - false]</i>: objeto que contiene toda la información que queremos transmitir.</li>
+                    <li><strong>bubbles</strong> <i>[bool - false]</i>: indica si el evento debe burbujear en el DOM "hacia la superficie" o no.</li>
+                    <li><strong>composed</strong> <i>[bool - false]</i>: indica si la propagación puede atravesar el Shadow DOM o no.</li>
+                    <li><strong>cancelable</strong> <i>[bool - false]</i>: indica si el comportamiento se puede cancelar con <code>.preventDefault()</code> o no.</li>
+                </ul>
+                <pre class="language-javascript"><code>
+
+                </code></pre>
+            </div>
+            <pre class="language-javascript"><code>
+const MessageEvent = new CustomEvent("message", {
+    detail: {
+        from: "Manz",
+        message: "Hello!"
+    },
+    bubbles: true,
+    composed: true
+});
+            </code></pre>
+        </div>
+
+        <strong>Propagación de eventos - bubbles</strong>
+        <div class="contain__block">
+            <div>
+                
+            </div>
+        </div>
+
+        <strong>Recepción de eventos - capture</strong>
+        <div class="contain__block">
+            <div>
+                
+            </div>
+        </div>
+
+        <strong>Atravesar Shadow - composed</strong>
+        <div class="contain__block">
+            <div>
+                
+            </div>
+        </div>
+
+        
+
+        
+
+
+
+
+        
+    </section>
+
+    <script>
+        $(function(){
+            $("#navList").load("./navList.html");
+        });
+    </script>
+    <script src="js/prism.js"></script>
+</body>
+</html>

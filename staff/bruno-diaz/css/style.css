@@ -1,0 +1,90 @@
+@import url("reset.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,900;1,400&display=swap');
+/* @import url("prism/default.css"); */
+@import url("prism.css");
+
+@import url("variables.css");
+
+@import url("navList.css");
+
+* { font-family: 'Roboto', sans-serif; font-size: 15px; }
+
+
+h1, h3, h6 {
+    color: var(--color-principal-darker);
+}
+h1 {
+    margin: 0.75em 0;
+}
+h3 {
+    font-size: 21px;
+    margin: 0.5em 0;
+    text-transform: capitalize;
+}
+h6 {
+    font-size: 18px;
+    margin: 0.75em 0;
+}
+h6::before {
+    content: '>  ';
+}
+h6:after {
+    content: ':';
+}
+
+a {
+    color: var(--color-principal-darker);
+    text-decoration: none;
+}
+
+
+
+
+
+#contain {
+    margin: 24px 24px 24px calc(50px + 24px);
+    line-height: 1.5;
+}
+.contain__block {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin: 24px 0;
+}
+.contain__block > div:first-child {
+    width: 50%;
+    flex: 1 1 auto;
+}
+.contain__block > div:first-child > pre {
+    margin: 0;
+    display: block;
+    background-color: transparent;
+}
+.contain__block > pre:last-child {
+    width: 40%;
+    height: auto;
+    flex: 1 0 auto;
+    margin: 0 0 0 10%;
+    /* padding: 24px; */
+}
+
+
+
+.contain__list { padding-left: 16px;}
+.contain__list li:before { 
+    content: '· ';
+}
+
+
+.moreInfo {
+    margin-top: 4px;
+    color: rgba(0, 0, 0, .5);
+    font-size: 13px;
+}
+.moreInfo i {
+    margin-right: 8px;
+    font-size: 14px;
+}

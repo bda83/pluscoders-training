@@ -1,0 +1,9 @@
+:root {
+    --color-principal-darkest: #1c3641;
+    --color-principal-darker: #287471;
+    --color-principal: #3AAFA9;
+    --color-principal-lighter: #c4e0df;
+    --color-principal-lightest: #FEFFFF;
+}
+
+.block { display: block; }
