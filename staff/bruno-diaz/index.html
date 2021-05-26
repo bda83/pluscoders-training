@@ -199,6 +199,46 @@ otraPersona.saludar() // Hola Óscar!
                 La función bind() crea una nueva función (función ligada con el mismo cuerpo) que será llamada (la función objetivo de la función ligada) con la referencia this asociada al primer argumento de bind(), el cual no podrá ser sobreescrito. También acepta parámetros predeterminados que antecederán al resto de los parámetros específicos cuando la función objetivo sea llamada. Una función ligada también puede ser construída utilizando el operador new: al hacerlo, actuará como si en su lugar hubiera sido construída la función objetivo.
                 <br><br>
                 El método bind() crea una nueva función, que cuando es llamada, asigna a su operador this el valor entregado, con una secuencia de argumentos dados precediendo a cualquiera entregados cuando la función es llamada. El valor de this es ignorado cuando la función es llamada con el operador new.
+                <br><br>
+                MANU: Te da una closure que envuelve a la función anterior y al llamarlo te la retornar:
+                <pre class="language-javascript"><code>
+function bind(fn, ctx) {
+    const args = Array.prototype.slice.call(arguments, 2)
+
+    return function() {
+        return fn.apply(ctx, Array.prototype.concat.apply(args, arguments))
+    }
+}
+
+Function.prototype.bind = function(ctx) {
+    console.log('mira! estamos usando nuestro propio bind del prototype .P')
+
+    const args = Array.prototype.slice.call(arguments, 1)
+
+    const self = this
+
+    return function() {
+        return self.apply(ctx, Array.prototype.concat.apply(args, arguments))
+    }
+}
+
+function talk(speech, date) {
+    return `${this.name}: ${speech} [${date}]`
+}
+
+const bruno = { name: 'Bruno' }
+
+const talkBruno = talk.bind(bruno)
+//const talkBruno = talk.bind(bruno, 'hola mundo')
+//const talkBruno = bind(talk, bruno)
+//const talkBruno = bind(talk, bruno, 'hola mundo')
+//const talkBruno = bind(talk, bruno, 'hola mundo', new Date())
+console.log(talkBruno('me encanta la vida, soy un tipo feliz', new Date()))
+console.log(talkBruno('y me gustaria ir a marte a ver marcianos', new Date()))
+
+console.log(talk.bind({ name: 'Alelí' }, 'hola mundo')('que bonito que es respirar', new Date()))
+                </code></pre>
+
             </div>
             <pre class="language-javascript"><code>
 // Objetos de partida
