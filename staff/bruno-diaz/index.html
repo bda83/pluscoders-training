@@ -142,6 +142,95 @@ console.log( user.sayHello() )
             </code></pre>
         </div>
 
+        <h3 id="function__C">Call - Apply - Bind</h3>
+        <div class="contain__block">
+            <div>
+                <h6>Las funciones son instancias de Object</h6>
+                En JS, salvo los primitivos, null y undefined, todo son objetos que poseen métodos y propiedades. Esto quiere decir que las funciones son instancias de la clase Function y que esta, a su vez, es una instancia de la clase Object. Por lo tanto, una función es un objeto con propiedades y métodos.
+                <br><br>
+                En este ejemplo podemos apreciar que las funciones tienen una propiedad llamada name que devuelve el nombre del función, en este caso «nuevaFuncion» y un método (los métodos no dejan de ser funciones que declaramos en un objeto para operar con ellos) que nos devuelve en un string todo el código de la función.
+            </div>
+            <pre class="language-javascript"><code>
+var nuevaFuncion = function(arg1, arg2) {
+    console.log("Mis argumentos son " + arg1 + " y " + arg2);
+}
+console.log(nuevaFuncion.name); 
+// nuevaFuncion
+console.log(nuevaFuncion.toString()); 
+// código de la función
+            </code></pre>
+        </div>
+        <div class="contain__block">
+            <div>
+                <h6>This</h6>
+                Los métodos call, apply y bind en Javascript sirven para llamar a una función asignando un valor a ‘this’, aprende como se usan y en que se diferencian.
+                <br><br>
+                Para entender qué hacen antes tenemos que saber qué es ‘this’ y cuándo se incluye. This es una variable que hace referencia al contexto de la función, es la manera de acceder a nuestra propia instancia. Notad que hablamos del contexto de la función, pero a lo que se accede es a la instancia, y además la instancia que usamos para llamar la función, se ve claro con un ejemplo, mira atentamente el código de ejemplo.
+                <br><br>
+                persona.saludar() devuelve «Hola Javi!» pues this.nombre no hace referencia a la variable que está en el interior de la función sino a la instancia desde donde se llama a ‘persona’; si te estás preguntando por qué digo que es una instancia y no un objeto es porque todos los objetos son instancias de Object. otraPersona.saludar() devuelve «Hola Óscar!», porque como acabamos de decir this accede a la instancia que usamos para llamar a la función y en este caso es otraPersona, simplemente mira lo que hay antes del último punto, esa es siempre la instancia que llama. De manera que el método saludar en este segundo caso está declarado en la instancia ‘persona’, pero es llamado desde la instancia ‘otraPersona’ y por eso el this apunta a esta.
+                <br><br>
+                Como antes deciamos call, apply y bind sirven para invocar funciones o métodos especificando el valor que tiene ‘this’.
+            </div>
+            <pre class="language-javascript"><code>
+var persona = {
+    nombre: "Javi",
+    saludar: function() {
+        var nombre = "Julio"
+        console.log("Hola " + this.nombre + "!")
+    }
+}
+persona.saludar() // Hola Javi!
+
+var otraPersona = {
+    nombre: "Óscar",
+    saludar: persona.saludar // referencia al método de persona
+}
+
+otraPersona.saludar() // Hola Óscar!
+            </code></pre>
+        </div>
+        <div class="contain__block">
+            <div>
+                <h6>Call()</h6>
+                El método call() llama a una función con un valor dado this y con argumentos provistos individualmente. Permite que una función/método que pertenece a un objeto, sea asignada y llamada por otro objeto diferente, asignándole un nuevo valor de this. De este modo, puedes escribir un método una vez y heredarlo otro objeto, sin tener que reescribir el método en el nuevo objeto.
+                <h6>Apply()</h6>
+                El método apply() invoca una determinada función asignando explícitamente el objeto this y un array (o similar) como parámetros para dicha función. Aunque la sintaxis de esta función es casi idéntica a call(), la diferencia fundamental es que call() acepta una lista de argumentos, mientras que apply() acepta un simple array con los argumentos.
+                <h6>Bind()</h6>
+                La función bind() crea una nueva función (función ligada con el mismo cuerpo) que será llamada (la función objetivo de la función ligada) con la referencia this asociada al primer argumento de bind(), el cual no podrá ser sobreescrito. También acepta parámetros predeterminados que antecederán al resto de los parámetros específicos cuando la función objetivo sea llamada. Una función ligada también puede ser construída utilizando el operador new: al hacerlo, actuará como si en su lugar hubiera sido construída la función objetivo.
+                <br><br>
+                El método bind() crea una nueva función, que cuando es llamada, asigna a su operador this el valor entregado, con una secuencia de argumentos dados precediendo a cualquiera entregados cuando la función es llamada. El valor de this es ignorado cuando la función es llamada con el operador new.
+            </div>
+            <pre class="language-javascript"><code>
+// Objetos de partida
+var persona = {
+    nombre: "Arturo",
+    saludar: function(saludo, dia) {
+        var nombre = "Bruno";
+        console.log(saludo + this.nombre + ", feliz " + dia + "!");
+    }
+}
+var otraPersona = {
+    nombre: "Carlos",
+}
+
+// Método CALL()
+persona.saludar.call(otraPersona, "Buenos días ", "lunes")
+// Buenos días Carlos, feliz lunes!
+
+// Método APPLY()
+persona.saludar.apply(otraPersona, ["Hola ", "martes"])
+// Hola Carlos, feliz martes!
+
+// Método BIND()
+var copia = persona.saludar.bind(otraPersona, "Hi ", "miércoles")
+copia()
+// Hi Carlos, feliz miércoles!
+otraPersona.nombre = "David"
+copia()
+// Hi David, feliz miércoles!
+            </code></pre>
+        </div><a href="http://www.oscarlijo.com/blog/call-apply-y-bind-en-javascript/#about" target="_blank">Más info</a>
+
         <h1 id="function__A">Scope</h1>
         <div class="contain__block">
             <div>
